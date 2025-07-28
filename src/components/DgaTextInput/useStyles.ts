@@ -1,47 +1,58 @@
-import { StyleSheet, I18nManager } from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../theme/colors';
 
 const useStyles = () => {
   const styles = StyleSheet.create({
     upperLabel: {
-      fontSize: 16,
-      lineHeight: 24,
-      color: colors.textDefault,
+      fontSize: 14,
+      lineHeight: 20,
+      color: colors.textColor,
+      marginBottom: 16,
     },
     star: {
-      color: colors.error,
+      color: colors.error[700],
+      fontSize: 20,
+      lineHeight: 40,
     },
     container: {
-      backgroundColor: colors.white,
       borderWidth: 1,
-      borderRadius: 5,
-      height: 48,
-      paddingVertical: 0,
-      paddingHorizontal: 5,
+      borderRadius: 4,
+      height: 44,
+      overflow: 'hidden',
+    },
+    innerContainer: {
+      flex: 1,
+      paddingHorizontal: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
     },
+    animatedLineContainer: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    animatedLine: {
+      height: 2,
+      backgroundColor: colors.textColor,
+    },
     textInput: {
       flex: 1,
       fontSize: 16,
-      marginHorizontal: 5,
-      color: colors.fieldTextFilled,
-      textAlign: I18nManager.isRTL ? 'right' : 'left',
+      marginHorizontal: 6,
+      color: colors.textColor,
       fontFamily: 'IBMPlexSansArabic-Regular',
     },
     messageContainer: {
-      width: '100%',
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      marginTop: 15,
+      marginTop: 16,
     },
     message: {
-      fontSize: 16,
-      color: colors.error,
-      marginHorizontal: 5,
-      writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+      fontSize: 14,
+      lineHeight: 20,
+      marginLeft: 8,
     },
   });
 

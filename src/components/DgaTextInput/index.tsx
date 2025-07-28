@@ -6,6 +6,7 @@ import {
   type ViewStyle,
   type StyleProp,
   Text,
+  Animated,
 } from 'react-native';
 import React, { useRef, useEffect, type ReactNode } from 'react';
 import colors from '../../theme/colors';
@@ -37,6 +38,32 @@ const DgaTextInput: React.FC<Props> = ({
 }) => {
   const inputRef = useRef<TextInputType>(null);
   const styles = useStyles();
+  const [containerWidth, setContainerWidth] = React.useState(0);
+  const [isFocused, setIsFocused] = React.useState(false);
+  const underlineAnim = useRef(new Animated.Value(0)).current;
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    Animated.timing(underlineAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    Animated.timing(underlineAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  // Get container width on layout
+  const handleLayout = (event: any) => {
+    setContainerWidth(event.nativeEvent.layout.width);
+  };
 
   //Auto focus on the input field when the component is mounted and autoFocus = true
   useEffect(() => {
@@ -48,32 +75,68 @@ const DgaTextInput: React.FC<Props> = ({
   });
 
   return (
-    <>
+    <View style={style}>
       {!!label && (
-        <DgaText weight="semiBold" style={[styles.upperLabel]}>
+        <DgaText weight="regular" style={[styles.upperLabel]}>
           {label}
           {required && <Text style={styles.star}>*</Text>}
         </DgaText>
       )}
       <View
+        onLayout={handleLayout}
         style={[
           styles.container,
           style,
-          { borderColor: error ? colors.error : colors.fieldBorderDefault },
+          {
+            borderColor: error
+              ? colors.error[700] // Error state (highest priority)
+              : isFocused
+                ? colors.textColor // Focused state
+                : colors.neutral[400], // Default state
+          },
         ]}
       >
-        {prefix}
-        <TextInput ref={inputRef} style={styles.textInput} {...otherProps} />
+        <View style={styles.innerContainer}>
+          {prefix}
+          <TextInput
+            placeholderTextColor={colors.neutral[500]}
+            ref={inputRef}
+            style={styles.textInput}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...otherProps}
+          />
+          {suffix}
+        </View>
+        <View style={styles.animatedLineContainer}>
+          <Animated.View
+            style={[
+              styles.animatedLine,
+              {
+                width: underlineAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, containerWidth],
+                }),
+              },
+            ]}
+          />
+        </View>
       </View>
-      {error && message && (
+      {message && (
         <View style={styles.messageContainer}>
-          <InfoCircle />
-          <DgaText weight="extraLight" style={styles.message}>
+          <InfoCircle color={error ? colors.error[700] : colors.neutral[700]} />
+          <DgaText
+            weight="extraLight"
+            style={[
+              styles.message,
+              { color: error ? colors.error[700] : colors.neutral[700] },
+            ]}
+          >
             {message}
           </DgaText>
         </View>
       )}
-    </>
+    </View>
   );
 };
 
