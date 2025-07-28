@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import { DgaTextInput } from 'react-native-dga';
+import { DgaTextInput, DgaButton } from 'react-native-dga';
 
 export default function App() {
   return (
@@ -10,6 +10,15 @@ export default function App() {
         message="هذا حقل مطلوب"
         error
         required
+      />
+      <DgaButton
+        title="تسجيل"
+        color="seconday"
+        size="large"
+        variant="contained"
+        onPress={() => {
+          console.log('Button pressed');
+        }}
       />
     </View>
   );

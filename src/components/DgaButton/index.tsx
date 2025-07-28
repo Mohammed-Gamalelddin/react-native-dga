@@ -12,7 +12,7 @@ import DgaText from '../DgaText';
 import colors from '../../theme/colors';
 
 interface Props {
-  color: 'natural' | 'primary' | 'error';
+  color: 'natural' | 'primary' | 'error' | 'seconday' | 'white';
   size: 'small' | 'medium' | 'large';
   variant: 'contained' | 'outlined' | 'transparent';
   disabled?: boolean;
@@ -67,6 +67,20 @@ const DgaButton: React.FC<Props> = ({
             labelColor: colors.error[600],
             borderColor: colors.error[600],
           };
+
+        case 'seconday':
+          return {
+            backgroundColor: 'transparent',
+            labelColor: colors.common.white,
+            borderColor: 'rgba(255, 255, 255, 0.20)',
+          };
+        case 'white':
+          return {
+            backgroundColor: 'transparent',
+            labelColor: colors.common.white,
+            borderColor: colors.common.white,
+          };
+
         default: // 'natural'
           return {
             backgroundColor: 'transparent',
@@ -95,6 +109,20 @@ const DgaButton: React.FC<Props> = ({
             labelColor: colors.error[600],
             borderColor: 'transparent',
           };
+
+        case 'seconday':
+          return {
+            backgroundColor: 'transparent',
+            labelColor: 'rgba(255, 255, 255, 0.20)',
+            borderColor: 'transparent',
+          };
+        case 'white':
+          return {
+            backgroundColor: 'transparent',
+            labelColor: colors.common.white,
+            borderColor: 'transparent',
+          };
+
         default: // 'natural'
           return {
             backgroundColor: 'transparent',
@@ -124,6 +152,20 @@ const DgaButton: React.FC<Props> = ({
             labelColor: colors.common.white,
             borderColor: colors.error[600],
           };
+
+        case 'seconday':
+          return {
+            backgroundColor: 'rgba(255, 255, 255, 0.20)',
+            labelColor: colors.common.white,
+            borderColor: 'rgba(255, 255, 255, 0.20)',
+          };
+        case 'white':
+          return {
+            backgroundColor: colors.common.white,
+            labelColor: colors.textColor,
+            borderColor: colors.common.white,
+          };
+
         default: // 'natural'
           return {
             backgroundColor: colors.neutral[950],
