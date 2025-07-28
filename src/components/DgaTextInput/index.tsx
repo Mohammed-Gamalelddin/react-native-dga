@@ -5,7 +5,6 @@ import {
   type TextInputProps,
   type ViewStyle,
   type StyleProp,
-  Text,
   Animated,
 } from 'react-native';
 import React, { useRef, useEffect, type ReactNode } from 'react';
@@ -79,7 +78,11 @@ const DgaTextInput: React.FC<Props> = ({
       {!!label && (
         <DgaText weight="regular" style={[styles.upperLabel]}>
           {label}
-          {required && <Text style={styles.star}>*</Text>}
+          {required && (
+            <DgaText weight="regular" style={styles.star}>
+              *
+            </DgaText>
+          )}
         </DgaText>
       )}
       <View
@@ -113,6 +116,7 @@ const DgaTextInput: React.FC<Props> = ({
             style={[
               styles.animatedLine,
               {
+                backgroundColor: error ? colors.error[700] : colors.textColor,
                 width: underlineAnim.interpolate({
                   inputRange: [0, 1],
                   outputRange: [0, containerWidth],

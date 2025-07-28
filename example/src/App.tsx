@@ -8,15 +8,7 @@ export default function App() {
         label="اسم المستخدم"
         placeholder="أدخل اسم المستخدم"
         message="هذا حقل مطلوب"
-        // error
-        required
-      />
-      <DgaTextInput
-        style={{ width: 200 }}
-        label="اسم المستخدم"
-        placeholder="أدخل اسم المستخدم"
-        message="هذا حقل مطلوب"
-        // error
+        error
         required
       />
     </View>

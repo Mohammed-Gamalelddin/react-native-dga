@@ -8,11 +8,13 @@ const useStyles = () => {
       lineHeight: 20,
       color: colors.textColor,
       marginBottom: 16,
+      paddingLeft: 6,
     },
     star: {
       color: colors.error[700],
-      fontSize: 20,
-      lineHeight: 40,
+      fontSize: 14,
+      lineHeight: 20,
+      letterSpacing: 3,
     },
     container: {
       borderWidth: 1,
