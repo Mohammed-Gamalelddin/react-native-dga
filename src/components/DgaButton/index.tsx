@@ -23,6 +23,7 @@ interface Props {
   loading?: boolean;
   activityIndicatorColor?: string;
   fullWidth?: boolean;
+  iconOnly?: boolean;
   onPress: () => void;
 }
 
@@ -38,6 +39,7 @@ const DgaButton: React.FC<Props> = ({
   loading,
   activityIndicatorColor,
   fullWidth = false,
+  iconOnly,
   onPress,
   ...otherProps
 }) => {
@@ -133,15 +135,26 @@ const DgaButton: React.FC<Props> = ({
   };
 
   const buttonSize = useMemo(() => {
+    if (iconOnly) {
+      switch (size) {
+        case 'small':
+          return { height: 24, width: 24, paddingHorizontal: 0 };
+        case 'large':
+          return { height: 32, width: 32, paddingHorizontal: 0 };
+        default: // 'medium'
+          return { height: 40, fontSize: 14, paddingHorizontal: 0 };
+      }
+    }
+
     switch (size) {
       case 'small':
-        return { height: 32, fontSize: 12 };
+        return { height: 32, fontSize: 12, paddingHorizontal: 15 };
       case 'large':
-        return { height: 44, fontSize: 16 };
+        return { height: 44, fontSize: 16, paddingHorizontal: 15 };
       default: // 'medium'
-        return { height: 40, fontSize: 14 };
+        return { height: 40, fontSize: 14, paddingHorizontal: 15 };
     }
-  }, [size]);
+  }, [size, iconOnly]);
 
   return (
     <TouchableOpacity
@@ -150,13 +163,15 @@ const DgaButton: React.FC<Props> = ({
         styles.buttonContainer,
         {
           height: buttonSize.height,
+          width: iconOnly ? buttonSize.height : undefined,
+          paddingHorizontal: buttonSize.paddingHorizontal,
           backgroundColor: getButtonColors().backgroundColor,
           borderColor: getButtonColors().borderColor,
           ...(fullWidth ? { width: '100%' } : {}),
         },
         style,
       ]}
-      onPress={onPress}
+      onPressIn={onPress}
       {...otherProps}
     >
       {loading ? (
@@ -172,18 +187,20 @@ const DgaButton: React.FC<Props> = ({
       ) : (
         <View style={styles.textContainer}>
           {icon}
-          <DgaText
-            weight="medium"
-            style={[
-              {
-                color: getButtonColors().labelColor,
-                fontSize: buttonSize.fontSize,
-              },
-              textStyle,
-            ]}
-          >
-            {title}
-          </DgaText>
+          {!iconOnly && (
+            <DgaText
+              weight="medium"
+              style={[
+                {
+                  color: getButtonColors().labelColor,
+                  fontSize: buttonSize.fontSize,
+                },
+                textStyle,
+              ]}
+            >
+              {title}
+            </DgaText>
+          )}
         </View>
       )}
     </TouchableOpacity>
@@ -191,12 +208,3 @@ const DgaButton: React.FC<Props> = ({
 };
 
 export default DgaButton;
-
-// {icon && isValidElement(icon)
-//     ? cloneElement(icon, {
-//         color: iconColor,
-//         // Preserve existing props and override color
-//         ...(icon.props || {}),
-//       })
-//     : icon
-// }

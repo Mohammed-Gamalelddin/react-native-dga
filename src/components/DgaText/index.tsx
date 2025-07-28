@@ -6,6 +6,8 @@ import {
   type StyleProp,
 } from 'react-native';
 
+//Make sure to install font family IBMPlexSansArabic
+
 interface Props extends TextProps {
   style?: StyleProp<TextStyle>;
   weight:
