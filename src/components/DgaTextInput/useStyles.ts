@@ -28,11 +28,14 @@ const useStyles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      position: 'relative',
     },
     animatedLineContainer: {
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'center',
+      position: 'absolute',
+      bottom: 0,
     },
     animatedLine: {
       height: 2,

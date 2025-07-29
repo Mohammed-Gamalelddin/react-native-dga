@@ -11,6 +11,14 @@ export default function App() {
         error
         required
       />
+
+      <DgaTextInput
+        label="اسم المستخدم"
+        placeholder="أدخل اسم المستخدم"
+        message="هذا حقل مطلوب"
+        required
+      />
+
       <DgaButton
         title="تسجيل"
         color="seconday"
